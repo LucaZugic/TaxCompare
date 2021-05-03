@@ -22,8 +22,33 @@
                 <div class="media-body">
                     <form action="/compute" method="POST">
                         <div class="form-group">
-                            <label for="income_1">Income</label>
-                            <input type="text" placeholder="Enter Income" name="inc_1">
+                            <div class="form-group">
+                                <label for="income_1">Income</label>
+                                <input type="text" option value="None" placeholder="Enter Income" name="inc1" />
+                                <select name=currencies method="GET" action="/">
+                                    {% for currency in currencies %}
+                                    <option value= "{{ currency }}" SELECTED>{{ currency }}</option>"
+                                    {% endfor %}
+                                </select>
+                                in
+                                <select name=regions method="GET" action="/">
+                                    {% for region in regions %}
+                                    <option value= "{{ region }}" SELECTED>{{ region }}</option>"
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </article>
+        </div>
+        <div class="col-md-6">
+            <article class="media content-section">
+                <div class="media-body">
+                    <form action="/compute" method="POST">
+                        <div class="form-group">
+                            <label for="income_2">Income</label>
+                            <input type="text" placeholder="Enter Income" name="income_2">
                             <select name=currencies method="GET" action="/">
                                 {% for currency in currencies %}
                                 <option value= "{{ currency }}" SELECTED>{{ currency }}</option>"
@@ -43,23 +68,7 @@
         <div class="col-md-6">
             <article class="media content-section">
                 <div class="media-body">
-                    <form action="/compute" method="POST">
-                        <div class="form-group">
-                            <label for="income_2">Income</label>
-                            <input type="text" placeholder="Enter Income" name="inc_2">
-                            <select name=currencies method="GET" action="/">
-                                {% for currency in currencies %}
-                                <option value= "{{ currency }}" SELECTED>{{ currency }}</option>"
-                                {% endfor %}
-                            </select>
-                            in
-                            <select name=regions method="GET" action="/">
-                                {% for region in regions %}
-                                <option value= "{{ region }}" SELECTED>{{ region }}</option>"
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </form>
+                    {{ tax_1 }}
                 </div>
             </article>
         </div>
