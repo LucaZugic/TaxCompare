@@ -2,6 +2,7 @@
 body {
 color: #262764;
 margin-top: 5rem;
+background-color: #1b2033;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -12,9 +13,34 @@ ul {
 margin: 0;
 }
 
+th {
+    text-align: center;
+}
+
 a, a:hover, a:active, a:visited {
 color: #030d44;
 text-decoration: none;
+}
+
+.u-full-width {
+    border: 5px;
+}
+
+.alert {
+    background-color: #ffffff;
+    color: black;
+    border-radius: 5px;
+    max-height: 0px;
+    line-height: 0px;
+    max-lines: 1;
+}
+
+.alert-higher {
+    background-color: #a9f1a7;
+}
+
+.alert-lower {
+    background-color: #ff8f8f;
 }
 
 .bg-blue {
@@ -34,10 +60,10 @@ font-weight: 500;
 }
 
 .content-section {
-background: #b9b9db;
+background: #9e9eb1;
 padding: 10px 20px;
 border: 1px solid #000000;
-border-radius: 3px;
+border-radius: 10px;
 margin-bottom: 20px;
 }
 
