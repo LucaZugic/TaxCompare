@@ -35,6 +35,14 @@ text-decoration: none;
     max-lines: 1;
 }
 
+.alert-warning{
+    background-color: #ff0505;
+    color: #ffffff;
+    max-height: none;
+    line-height: normal;
+    font-size: x-large;
+}
+
 .alert-higher {
     background-color: #a9f1a7;
 }
