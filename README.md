@@ -1,4 +1,4 @@
-### TaxCompare.pythonanywhere.com](http://taxcompare.pythonanywhere.com)
+### [taxcompare.pythonanywhere.com](http://taxcompare.pythonanywhere.com)
 
 Website that allows users to compare income taxes in different regions.
 
