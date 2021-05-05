@@ -44,11 +44,15 @@ text-decoration: none;
 }
 
 .alert-higher {
-    background-color: #a9f1a7;
+    background-color: #b3f0b0;
 }
 
 .alert-lower {
-    background-color: #ff8f8f;
+    background-color: #f89d9d;
+}
+
+.alert-equal {
+    background-color: #8ec4f0;
 }
 
 .bg-blue {
