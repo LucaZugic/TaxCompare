@@ -1,47 +1,49 @@
 from flask import Flask, render_template, request
+from forex_python.converter import CurrencyRates
 
 app = Flask(__name__)
+
+convert = CurrencyRates().convert
 
 
 @app.route('/', methods=['GET'])
 def index():
-    currencies = ['GBP £']
-    regions = ['England w/ NI', 'England w/o NI', 'Scotland w/ NI', 'Scotland w/o NI']
-    return render_template('index.html', currencies=currencies, regions=regions)
+    success = 'alert-lower'
+    return render_template('index.html', success=success)
 
 
-@app.route('/compute', methods=['POST', 'GET'])
-def compute():
+@app.route('/compute', methods=['POST'])
+def form1():
+
+    with_NI = "& Nation Insurance"
     
-    income_1 = request.form.get('inc1', None)
-    income_2 = request.form.get('income_2', None)
-    currency_1 = request.form.get('currency_1', None)
-    currency_2 = request.form.get('currency_2', None)
-    region_1 = request.form.get('region_1', None)
-    region_2 = request.form.get('region_2', None)
-   
-    if income_1 != '' and income_2 != '':
-        if region_1 == 'England w/ NI':
-            tax_1 = compute_tax_england(income_1)
-            ni_1 = compute_ni_england(income_1)
-        elif region_1 == 'England w/o NI':
-            tax_1 = compute_tax_england(income_1)
-            return render_template('index.html', tax_1=tax_1)
-        elif region_1 == 'Scotland w/ NI':
-            tax_1 = compute_tax_scotland(income_1)
-            ni_1 = compute_ni_scotland(income_1)
-        elif region_1 == 'Scotland w/o NI':
-            tax_1 = compute_tax_scotland(income_1)
-        if region_2 == 'England w/ NI':
-            tax_2 = compute_tax_england(income_2)
-            ni_2 = compute_ni_england(income_1)
-        elif region_2 == 'England w/o NI':
-            tax_2 = compute_tax_england(income_2)
-        elif region_2 == 'Scotland w/ NI':
-            tax_2 = compute_tax_scotland(income_2)
-            ni_2 = compute_ni_scotland(income_2)
-        elif region_2 == 'Scotland w/o NI':
-            tax_2 = compute_tax_scotland(income_2)
+    if request.method == 'POST':
+
+        income_1 = float(request.form['income_1'])
+        currency_1 = request.form['currency_1'] 
+        region_1 = request.form['region_1']
+
+        return render_template('index.html', anual_net_income_1 = income_1)
+    
+    else:
+        return render_template('index.html')
+
+
+@app.route('/form2', methods=['POST'])
+def form2():
+    print(income_1)
+    with_NI = "& Nation Insurance"
+    
+    if request.method == 'POST':
+
+        income_1 = float(request.form['income_2'])
+        currency_1 = request.form['currency_2'] 
+        region_1 = request.form['region_2']
+
+        return render_template('index.html')
+    
+    else:
+        return render_template('index.html')
 
 
 @app.route('/about')
