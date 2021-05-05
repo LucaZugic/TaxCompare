@@ -12,35 +12,47 @@ def index():
     return render_template('index.html', success=success)
 
 
-@app.route('/compute', methods=['POST'])
-def form1():
+@app.route('/submit', methods=['POST'])
+def compute():
 
     with_NI = "& Nation Insurance"
     
     if request.method == 'POST':
 
-        income_1 = float(request.form['income_1'])
+        income_1 = request.form['income_1']
         currency_1 = request.form['currency_1'] 
         region_1 = request.form['region_1']
+        income_2 = request.form['income_2']
+        currency_2 = request.form['currency_2']
+        region_2 = request.form['region_2']
 
-        return render_template('index.html', anual_net_income_1 = income_1)
-    
-    else:
-        return render_template('index.html')
+        if income_1 != '' and income_2 != '':
+            income_1 = float(income_1)
+            income_2 = float(income_2)
+        elif income_1 != '':
+            income_1 = float(income_1)
+            if region_1 == 'Scot0':
+                if currency_1 != 'GBP':
+                    burden = convert('GBP', currency_1, compute_tax_scotland(convert(currency_1, 'GBP', income_1)))
+                else:
+                    burden = compute_tax_scotland(income_1)
+            elif region_1 == 'Scot1':
+                pass
+            elif region_1 == 'Eng0':
+                pass
+            elif region_1 == 'Eng1':
+                pass
 
+            net_income = income_1 - burden
+            return render_template('index.html', annual_net_income_1=net_income, monthly_net_income_1=round(net_income/12,2), cur1=currency_1,
+            annual_tax_1=burden, monthly_tax_1=round(burden/12,2))
+        elif income_2 != '':
+            income_2 = float(income_2)
+        else:
+            alert_message = "Please enter at least one income."
+            return render_template('index.html', missing_value_alert_message=alert_message)
 
-@app.route('/form2', methods=['POST'])
-def form2():
-    print(income_1)
-    with_NI = "& Nation Insurance"
-    
-    if request.method == 'POST':
-
-        income_1 = float(request.form['income_2'])
-        currency_1 = request.form['currency_2'] 
-        region_1 = request.form['region_2']
-
-        return render_template('index.html')
+        return render_template('index.html', annual_net_income_1=income_1, annual_net_income_2=income_2)
     
     else:
         return render_template('index.html')
