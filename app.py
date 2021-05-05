@@ -26,7 +26,10 @@ def compute():
         percentage_burden = [0, 0]
         net_income = [0, 0]
         alert_types = ('alert-higher', 'alert-lower', 'alert-equal')
-        alert = ['', '']
+        income_alert = ['', '']
+        tax_alert = ['', '']
+        perc_alert = ['', '']
+        
         ni_extension = ['', '']
 
         has_income = [False, False]
@@ -79,11 +82,11 @@ def compute():
             tax_percentage_difference = percentage_burden[1] - percentage_burden[0]
             
             if tax_percentage_difference < 0:
-                perc_alert[0] = alert_types[0]
-                perc_alert[1] = alert_types[1]
-            elif tax_percentage_difference > 0:
                 perc_alert[0] = alert_types[1]
                 perc_alert[1] = alert_types[0]
+            elif tax_percentage_difference > 0:
+                perc_alert[0] = alert_types[0]
+                perc_alert[1] = alert_types[1]
             else:
                 perc_alert[0] = alert_types[2]
                 perc_alert[1] = alert_types[2]
@@ -91,11 +94,11 @@ def compute():
             tax_difference = burden[1] - burden[0]
 
             if tax_difference < 0:
-                tax_alert[0] = alert_types[0]
-                tax_alert[1] = alert_types[1]
-            elif tax_difference > 0:
                 tax_alert[0] = alert_types[1]
                 tax_alert[1] = alert_types[0]
+            elif tax_difference > 0:
+                tax_alert[0] = alert_types[0]
+                tax_alert[1] = alert_types[1]
             else:
                 tax_alert[0] = alert_types[2]
                 tax_alert[1] = alert_types[2]
@@ -105,6 +108,7 @@ def compute():
             else:
                 return render_template('index.html',
                     # Income 1:
+                    income_alert_1=income_alert[0],
                     annual_net_income_1=net_income[0],
                     monthly_net_income_1=round(net_income[0] / 12, 2),
                     cur1=currency[0],
@@ -117,11 +121,12 @@ def compute():
                     # Differences:
                     annual_net_difference=abs(net_income[1] - net_income[0]),
                     monthly_net_difference=round(abs(net_income[1] - net_income[0]) / 12, 2),
-                    percentages_difference=str(abs(percentage_burden[1] - percentage_burden[0])) + " %",
-                    annual_tax_difference=abs(burden[1] - burden[0]),
+                    percentages_difference=str(round(abs(percentage_burden[1] - percentage_burden[0]), 2)) + " %",
+                    annual_tax_difference=round(abs(burden[1] - burden[0]), 2),
                     monthly_tax_difference=round(abs(burden[1] - burden[0]) / 12, 2),
                     difference_currency=currency[0],
                     # Income 2:
+                    income_alert_2=income_alert[1],
                     annual_net_income_2=net_income[1],
                     monthly_net_income_2=round(net_income[1] / 12, 2),
                     cur2=currency[1],
