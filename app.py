@@ -14,9 +14,6 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def compute():
-
-    
-    
     if request.method == 'POST':
 
         incomes = [request.form['income_1'], request.form['income_2']]
