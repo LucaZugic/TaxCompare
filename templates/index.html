@@ -19,34 +19,52 @@
                 <div class="media-body">
                     <center>
                         <h6>Enter Income 1 and Income 2</h6>
+                        <div class="container">
+                            <div id="submitted_value">
+                              {% if result %}
+                                Selected Item: {{ result }}
+                              {% endif %}
+                            </div>
                         <form action="/submit" method="POST">   
                             <label for="Income">Income 1 </label>
                             <input type="number" placeholder="Enter Income" value="{{ request.form.get('income_1', '') }}" name="income_1" />
                             <select class="u-full-width" name="currency_1">
-                                <option value=GBP>GBP </option>
+                                <option {% if request.form.get('currency_1', '') == "EUR" %} selected {% endif %} value=EUR>EUR</option>
+                                <option {% if request.form.get('currency_1', '') == "CHF" %} selected {% endif %} value=CHF>CHF</option>
+                                <option {% if request.form.get('currency_1', '') == "GBP" %} selected {% endif %} value=GBP>GBP</option>
+                                <option {% if request.form.get('currency_1', '') == "USD" %} selected {% endif %} value=USD>USD</option>
                             </select>
                             in
                             <select class="u-full-width" name="region_1">
-                                <option value=Scot1>Scotland w/ NI</option>
-                                <option value=Scot0>Scotland w/o NI</option>
-                                <option value=Eng1>England w/ NI</option>
-                                <option value=Eng0>England w/o NI</option>
+                                <optgroup label="Europe"></optgroup>
+                                <option {% if request.form.get('region_1', '') == "Ger" %} selected {% endif %} value=Ger>Germany</option>
+                                <optgroup label="Great Britain"></optgroup>
+                                <option {% if request.form.get('region_1', '') == "Scot1" %} selected {% endif %} value=Scot1>Scotland w/ NI</option>
+                                <option {% if request.form.get('region_1', '') == "Scot0" %} selected {% endif %} value=Scot0>Scotland w/o NI</option>
+                                <option {% if request.form.get('region_1', '') == "Eng1" %} selected {% endif %} value=Eng1>England w/ NI</option>
+                                <option {% if request.form.get('region_1', '') == "Eng0" %} selected {% endif %} value=Eng0>England w/o NI</option>
                             </select>
                             &nbsp;&nbsp;&nbsp;&nbsp;      
                             <label for="Income">Income 2 </label>
                             <input type="number" placeholder="Enter Income" value="{{ request.form.get('income_2', '') }}" name="income_2" />
                             <select class="u-full-width" name="currency_2">
-                                <option value=GBP>GBP </option>
+                                <option {% if request.form.get('currency_2', '') == "EUR" %} selected {% endif %} value=EUR>EUR</option>
+                                <option {% if request.form.get('currency_2', '') == "CHF" %} selected {% endif %} value=CHF>CHF</option>
+                                <option {% if request.form.get('currency_2', '') == "GBP" %} selected {% endif %} value=GBP>GBP</option>
+                                <option {% if request.form.get('currency_2', '') == "USD" %} selected {% endif %} value=USD>USD</option>
                             </select>
                             in
                             <select class="u-full-width" value="{{ request.form.get('region_2', '') }}" name="region_2">
-                                <option value=Scot1>Scotland w/ NI</option>
-                                <option value=Scot0>Scotland w/o NI</option>
-                                <option value=Eng1>England w/ NI</option>
-                                <option value=Eng0>England w/o NI</option>
+                                <optgroup label="Europe"></optgroup>
+                                <option {% if request.form.get('region_2', '') == "Ger" %} selected {% endif %} value=Ger>Germany</option>
+                                <optgroup label="Great Britain"></optgroup>
+                                <option {% if request.form.get('region_2', '') == "Scot1" %} selected {% endif %} value=Scot1>Scotland w/ NI</option>
+                                <option {% if request.form.get('region_2', '') == "Scot0" %} selected {% endif %} value=Scot0>Scotland w/o NI</option>
+                                <option {% if request.form.get('region_2', '') == "Eng1" %} selected {% endif %} value=Eng1>England w/ NI</option>
+                                <option {% if request.form.get('region_2', '') == "Eng0" %} selected {% endif %} value=Eng0>England w/o NI</option>
                             </select>
                             <br>
-                            <input type="submit" value="Calculate" />
+                            <input class="submit-button" type="submit" value="Calculate" />
                         </form>
                         <div class="aler alert-warning">{{ missing_value_alert_message }}</div>
                     </center>
@@ -70,12 +88,12 @@
             <article class="media content-section">
                 <div class="media-body">
                     <center><h6>Net Income Difference</h6></center>
-                    <label for="total tax">Annual</label><div class="alert">{{ annual_net_difference }} {{ difference_currency }}</div>
-                    <label for="tax">Monthly </label><div class="alert">{{ monthly_net_difference }} {{ difference_currency }}</div>
+                    <label for="total tax">Annual</label><div class="alert">{{ annual_net_difference_1 }} {{ difference_currency_1 }} {{ annual_net_difference_2 }} {{ difference_currency_2 }}</div>
+                    <label for="tax">Monthly </label><div class="alert">{{ monthly_net_difference_1 }} {{ difference_currency_1 }} {{ monthly_net_difference_2 }} {{ difference_currency_2 }}</div>
                     <center><h6>Tax Difference</h6></center>
                     <label for="percentage tax">Difference of %</label><div class="alert">{{ percentages_difference }}</div>
-                    <label for="total tax">Annual</label><div class="alert">{{ annual_tax_difference }} {{ difference_currency }}</div>
-                    <label for="tax">Monthly</label><div class="alert">{{ monthly_tax_difference }} {{ difference_currency }}</div>
+                    <label for="total tax">Annual</label><div class="alert">{{ annual_tax_difference_1 }} {{ difference_currency_1 }} {{ annual_tax_difference_2 }} {{ difference_currency_2 }}</div>
+                    <label for="tax">Monthly</label><div class="alert">{{ monthly_tax_difference_1 }} {{ difference_currency_1 }}</div>
                 </div>
             </article>
         </div>
