@@ -23,7 +23,18 @@ text-decoration: none;
 }
 
 .u-full-width {
-    border: 5px;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.submit-button {
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.region-category {
+    color: #000000;
+    font-weight: bold;
 }
 
 .alert {
