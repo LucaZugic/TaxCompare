@@ -58,7 +58,7 @@ def compute():
                         burden[i] = convert('GBP', currency[i], compute_tax_england(convert(currency[i], 'GBP', income)) + compute_ni(convert(currency[i], 'GBP', income)))
                     else:
                         burden[i] = compute_tax_england(income) + compute_ni(income)
-                elif region[i] == 'Ger':
+                elif region[i] == 'Ger0':
                     if currency != 'EUR':
                         burden[i] = convert('GBP', currency[i], compute_tax_germany(convert(currency[i], 'GBP', income)))
                     else:
@@ -72,22 +72,23 @@ def compute():
             if currency[0] != currency[1]:
                 burden_converted = [0, 0]
                 net_income_converted = [0, 0]
+                net_income_difference = [0, 0]
                 burden_converted = [0, 0]
                 tax_difference = [0, 0]
                 net_income_converted[0] = convert(currency[0], currency[1], net_income[0])
                 net_income_converted[1] = convert(currency[1], currency[0], net_income[1])
-                net_income_difference_1 = net_income_converted[1] - net_income[0]
-                net_income_difference_2 = net_income[1] - net_income_converted[0]
+                net_income_difference[0] = net_income_converted[1] - net_income[0]
+                net_income_difference[1] = net_income[1] - net_income_converted[0]
                 burden_converted[0] = convert(currency[0], currency[1], burden[0])
                 burden_converted[1] = convert(currency[1], currency[0], burden[1])
                 tax_difference[0] = burden_converted[1] - burden[0]
                 tax_difference[1] = burden[1] - burden_converted[0]
                 
 
-                if net_income_difference_1 < 0:
+                if net_income_difference[0] < 0:
                     income_alert[0] = alert_types[0]
                     income_alert[1] = alert_types[1]
-                elif net_income_difference_1 > 0:
+                elif net_income_difference[0] > 0:
                     income_alert[0] = alert_types[1]
                     income_alert[1] = alert_types[0]
                 else:
@@ -106,12 +107,10 @@ def compute():
                     perc_alert[0] = alert_types[2]
                     perc_alert[1] = alert_types[2]
 
-                tax_difference = burden[1] - burden[0]
-
-                if tax_difference < 0:
+                if tax_difference[0] < 0:
                     tax_alert[0] = alert_types[1]
                     tax_alert[1] = alert_types[0]
-                elif tax_difference > 0:
+                elif tax_difference[0] > 0:
                     tax_alert[0] = alert_types[0]
                     tax_alert[1] = alert_types[1]
                 else:
@@ -132,26 +131,38 @@ def compute():
                     percentage_alert_1=perc_alert[0],
                     percentage_tax_1=str(percentage_burden[0]) + " %",
                     annual_tax_1=round(burden[0], 2),
+                    annual_tax_1_converted=round(burden_converted[0], 2),
                     monthly_tax_1=round(burden[0] / 12, 2),
+                    monthly_tax_1_converted=round(burden_converted[0] / 12, 2),
                     # Differences:
-                    annual_net_difference_1=abs(net_income[1] - net_income[0]),
-                    monthly_net_difference_1=round(abs(net_income[1] - net_income[0]) / 12, 2),
+                    annual_net_difference_1=round(abs(net_income_difference[0]), 2),
+                    annual_net_difference_2=round(abs(net_income_difference[1]), 2),
+                    monthly_net_difference_1=round(abs(net_income_difference[0]) / 12, 2),
+                    monthly_net_difference_2=round(abs(net_income_difference[1]) / 12, 2),
                     percentages_difference=str(round(abs(percentage_burden[1] - percentage_burden[0]), 2)) + " %",
-                    annual_tax_difference=round(abs(burden[1] - burden[0]), 2),
-                    monthly_tax_difference=round(abs(burden[1] - burden[0]) / 12, 2),
+                    annual_tax_difference_1=round(abs(burden_converted[1] - burden[0]), 2),
+                    annual_tax_difference_2=" = " + str(round(abs(burden[1] - burden_converted[0]), 2)),
+                    monthly_tax_difference_1=round(abs(burden_converted[1] - burden[0]) / 12, 2),
+                    monthly_tax_difference_2=" = " + str(round(abs(burden[1] - burden_converted[0]) / 12, 2)),
                     difference_currency_1=currency[0],
+                    difference_currency_2=currency[1],
                     # Income 2:
                     income_alert_2=income_alert[1],
                     annual_net_income_2=net_income[1],
+                    annual_net_income_2_converted=" = " + str(round(net_income_converted[1], 2)),
                     monthly_net_income_2=round(net_income[1] / 12, 2),
+                    monthly_net_income_2_converted=" = " + str(round(net_income_converted[1] / 12, 2)),
                     cur2=currency[1],
                     ni_extension_2=ni_extension[1],
                     tax_alert_2=tax_alert[1],
                     percentage_alert_2=perc_alert[1],
                     percentage_tax_2=str(percentage_burden[1]) + " %",
                     annual_tax_2=round(burden[1], 2),
-                    monthly_tax_2=round(burden[1] / 12, 2))
-                    
+                    annual_tax_2_converted=round(burden_converted[1], 2),
+                    monthly_tax_2=round(burden[1] / 12, 2),
+                    monthly_tax_2_converted=round(burden_converted[1] / 12, 2),
+                    cur2_conv=currency[0])
+                
             else:
                 net_income_difference = net_income[1] - net_income[0]
 
@@ -202,7 +213,7 @@ def compute():
                     annual_tax_1=round(burden[0], 2),
                     monthly_tax_1=round(burden[0] / 12, 2),
                     # Differences:
-                    annual_net_difference_1=abs(net_income[1] - net_income[0]),
+                    annual_net_difference_1=round(abs(net_income[1] - net_income[0]), 2),
                     monthly_net_difference_1=round(abs(net_income[1] - net_income[0]) / 12, 2),
                     percentages_difference=str(round(abs(percentage_burden[1] - percentage_burden[0]), 2)) + " %",
                     annual_tax_difference_1=round(abs(burden[1] - burden[0]), 2),
