@@ -37,7 +37,7 @@
                             in
                             <select class="u-full-width" name="region_1">
                                 <optgroup label="Germany"></optgroup>
-                                <option {% if request.form.get('region_1', '') == "Ger0" %} selected {% endif %} value=Ger>Germany</option>
+                                <option {% if request.form.get('region_1', '') == "Ger0" %} selected {% endif %} value=Ger0>Germany tax only</option>
                                 <optgroup label="Great Britain"></optgroup>
                                 <option {% if request.form.get('region_1', '') == "Scot1" %} selected {% endif %} value=Scot1>Scotland w/ NI</option>
                                 <option {% if request.form.get('region_1', '') == "Scot0" %} selected {% endif %} value=Scot0>Scotland w/o NI</option>
